@@ -1,0 +1,39 @@
+#title{
+  float:right;
+  align-content: center;
+  color: gray;
+  text-align: center;
+  font-size: 100;
+  padding-right: 500;
+
+}
+
+#blurb{
+  color: gray;
+  padding-top: 180;
+  padding-left: 300;
+}
+
+#next{
+  position: absolute;
+  color:gray;
+  left: 48%;
+  height: 40;
+  border-radius: 20%;
+}
+
+#one{
+  color:blue;
+}
+
+#two{
+  color:red;
+}
+
+#three{
+  color:yellow;
+}
+
+#four{
+color:green;
+}
