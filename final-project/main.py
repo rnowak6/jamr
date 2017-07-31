@@ -33,9 +33,10 @@ jinja_environment = jinja2.Environment(
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         my_template = jinja_environment.get_template("templates/test.html")
+        promptLogIn()
+        self.response.write(my_template.render())
 
-
-
+    def promptLogIn(self):
         scope = 'user-library-read'
 
         if len(sys.argv) > 1:
@@ -55,8 +56,6 @@ class MainHandler(webapp2.RequestHandler):
         else:
             print "Can't get token for", username
 
-
-        self.response.write(my_template.render())
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
