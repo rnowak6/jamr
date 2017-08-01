@@ -9,20 +9,6 @@ import json
 client_credentials_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
-#first try
-# user=raw_input("What is your username?")
-# playlists = sp.user_playlists(user)
-# while playlists:
-#     for i, playlist in enumerate(playlists['items']):
-#         print("%4d %s %s" % (i + 1 + playlists['offset'], playlist['uri'],  playlist['name']))
-#         sp_playlist=sp.user_playlist_tracks(user,playlist['uri'],limit=100,offset=0)
-#         print sp_playlist
-#     if playlists['next']:
-#         playlists = sp.next(playlists)
-#     else:
-#         playlists = None
-
-#second try
 user=raw_input("What is your username?")
 playlists = sp.user_playlists(user)
 playlist=playlists['items'][0]
@@ -51,16 +37,3 @@ if playlist_tracks['next']:
 else:
         playlist_tracks = None
 print types_of_songs
-
-
-# print playlist
-#print playlist_tracks
-# for i, song in enumerate(playlists['items'][0]):
-#     #print("%4d %s %s" % (i + 1 + playlists['offset'], playlist['uri'],  playlist['name']))
-#     sp_playlist=sp.user_playlist_tracks(user,playlist['uri'],limit=100,offset=0)
-#     artist_id= sp_playlist['items'][0]['track']['artists'][0]['id']
-#     print str(count)+"."
-#     print sp_playlist['items'][0]['track']['artists'][0]['name']
-#     count+=1
-#     print sp.artist(artist_id)['genres'][0]
-#     print ""
