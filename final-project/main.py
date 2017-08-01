@@ -32,11 +32,11 @@ jinja_environment = jinja2.Environment(
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        promptLogIn()
         my_template = jinja_environment.get_template("templates/test.html")
         self.response.write(my_template.render())
 
-    def promptLogIn(self):
+class LoginHandler(webabb2.RequestHandler):
+    def get(self):
         scope = 'user-library-read'
 
         if len(sys.argv) > 1:
@@ -55,8 +55,10 @@ class MainHandler(webapp2.RequestHandler):
                 print track['name'] + ' - ' + track['artists'][0]['name']
         else:
             print "Can't get token for", username
+        self.response.write("this is loaded")
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/login',LoginHandler)
 ], debug=True)
