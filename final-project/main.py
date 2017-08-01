@@ -25,7 +25,7 @@ import spotipy
 import sys
 import spotipy.util as util
 
-sp = spotipy.Spotify()
+# sp = spotipy.Spotify()
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
