@@ -58,6 +58,7 @@ class MainHandler(webapp2.RequestHandler):
         #     # self.response.write(gif_url)
 
 
+<<<<<<< HEAD
 # class AmeliaHandler(webapp2.RequestHandler):
 #     def get(self):
 #         scope = 'user-library-read'
@@ -91,4 +92,9 @@ app = webapp2.WSGIApplication([
 # =======
     # ('/login',LoginHandler)
 # >>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
+=======
+
+app = webapp2.WSGIApplication([
+    ('/', MainHandler),
+>>>>>>> 309431d13af94d166777212558fb51cf3148db83
 ], debug=True)
