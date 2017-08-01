@@ -35,13 +35,17 @@ class MainHandler(webapp2.RequestHandler):
         # search = self.request.get("search")
         my_template = jinja_environment.get_template("templates/test.html")
         places_data_source = urllib2.urlopen(
-            "https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants%20in%20chicago&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg")
+            "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subway%20in%20New%20York%20City&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg")
         places_json_content = places_data_source.read()
         parsed_places_dictionary = json.loads(places_json_content)
-        latlngDict = parsed_places_dictionary["results"][0]["geometry"]["location"]
-        lat = latlngDict["lat"]
-        lng = latlngDict["lng"]
-        render_data = { "lat": lat, "lng": lng}
+        results = parsed_places_dictionary["results"]
+        latlngList = []
+        for result in results:
+            latlngDict = result["geometry"]["location"]
+            lat = latlngDict["lat"]
+            lng = latlngDict["lng"]
+            latlngList.append((lat,lng))
+        render_data = { "lat": lat, "lng": lng, "coordinate_list" : latlngList}
         self.response.write(my_template.render(render_data))
 
         # url_params = {'q': search, 'api_key': 'dc6zaTOxFJmzC', 'limit': 10}
@@ -58,8 +62,47 @@ class LoginHandler(webapp2.RequestHandler):
         my_template=jinja_environment.get_template("templates/login.html")
         self.response.write(my_template.render())
 
+<<<<<<< HEAD
+# class AmeliaHandler(webapp2.RequestHandler):
+#     def get(self):
+#         scope = 'user-library-read'
+#
+#         if len(sys.argv) > 1:
+#             username = sys.argv[1]
+#         else:
+#             print "Usage: %s username" % (sys.argv[0],)
+#             sys.exit()
+#
+#         token = util.prompt_for_user_token(username, scope)
+#
+#         if token:
+#             sp = spotipy.Spotify(auth=token)
+#             results = sp.current_user_saved_tracks()
+#             for item in results['items']:
+#                 track = item['track']
+#                 print track['name'] + ' - ' + track['artists'][0]['name']
+#         else:
+#             print "Can't get token for", username
+# <<<<<<< HEAD
+# =======
+# #         self.response.write("this is loaded")
+# >>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
+#
+#
+app = webapp2.WSGIApplication([
+    ('/', MainHandler),
+# <<<<<<< HEAD
+#     # ('/Amelia', AmeliaHandler)
+# =======
+    # ('/login',LoginHandler)
+# >>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
+=======
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
+<<<<<<< HEAD
     ('/login',LoginHandler)
+=======
+>>>>>>> 309431d13af94d166777212558fb51cf3148db83
+>>>>>>> d043b2b2226c2cd55eeba4307815e92a984ae485
 ], debug=True)
