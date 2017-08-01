@@ -3,7 +3,7 @@ var service;
 var infowindow;
 
 function initialize() {
-  var pyrmont = new google.maps.LatLng(-33.8665433,151.1956316);
+  var pyrmont = new google.maps.LatLng(41.881832,	-87.623177);
 
   map = new google.maps.Map(document.getElementById('map'), {
       center: pyrmont,
