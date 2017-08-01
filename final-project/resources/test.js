@@ -13,7 +13,7 @@ function initialize() {
   var request = {
     location: pyrmont,
     radius: '500',
-    type: ['restaurant']
+    type: ['park']
   };
 
   service = new google.maps.places.PlacesService(map);
