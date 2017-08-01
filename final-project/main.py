@@ -32,8 +32,8 @@ jinja_environment = jinja2.Environment(
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        my_template = jinja_environment.get_template("templates/test.html")
         promptLogIn()
+        my_template = jinja_environment.get_template("templates/test.html")
         self.response.write(my_template.render())
 
     def promptLogIn(self):
