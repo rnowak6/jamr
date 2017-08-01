@@ -34,15 +34,18 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         # search = self.request.get("search")
         my_template = jinja_environment.get_template("templates/test.html")
-<<<<<<< HEAD
         places_data_source = urllib2.urlopen(
-            "https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants%20in%20chicago&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg")
+            "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subway%20in%20New%20York%20City&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg")
         places_json_content = places_data_source.read()
         parsed_places_dictionary = json.loads(places_json_content)
-        latlngDict = parsed_places_dictionary["results"][0]["geometry"]["location"]
-        lat = latlngDict["lat"]
-        lng = latlngDict["lng"]
-        render_data = { "lat": lat, "lng": lng}
+        results = parsed_places_dictionary["results"]
+        latlngList = []
+        for result in results:
+            latlngDict = result["geometry"]["location"]
+            lat = latlngDict["lat"]
+            lng = latlngDict["lng"]
+            latlngList.append((lat,lng))
+        render_data = { "lat": lat, "lng": lng, "coordinate_list" : latlngList}
         self.response.write(my_template.render(render_data))
 
         # url_params = {'q': search, 'api_key': 'dc6zaTOxFJmzC', 'limit': 10}
@@ -56,11 +59,6 @@ class MainHandler(webapp2.RequestHandler):
 
 
 # class AmeliaHandler(webapp2.RequestHandler):
-=======
-        self.response.write(my_template.render())
-
-# class LoginHandler(webabb2.RequestHandler):
->>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
 #     def get(self):
 #         scope = 'user-library-read'
 #
@@ -80,17 +78,17 @@ class MainHandler(webapp2.RequestHandler):
 #                 print track['name'] + ' - ' + track['artists'][0]['name']
 #         else:
 #             print "Can't get token for", username
-<<<<<<< HEAD
-=======
-#         self.response.write("this is loaded")
->>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
-
-
+# <<<<<<< HEAD
+# =======
+# #         self.response.write("this is loaded")
+# >>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
+#
+#
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-<<<<<<< HEAD
-    # ('/Amelia', AmeliaHandler)
-=======
-    ('/login',LoginHandler)
->>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
+# <<<<<<< HEAD
+#     # ('/Amelia', AmeliaHandler)
+# =======
+    # ('/login',LoginHandler)
+# >>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
 ], debug=True)
