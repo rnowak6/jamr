@@ -34,6 +34,7 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         # search = self.request.get("search")
         my_template = jinja_environment.get_template("templates/test.html")
+<<<<<<< HEAD
         places_data_source = urllib2.urlopen(
             "https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants%20in%20chicago&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg")
         places_json_content = places_data_source.read()
@@ -55,6 +56,11 @@ class MainHandler(webapp2.RequestHandler):
 
 
 # class AmeliaHandler(webapp2.RequestHandler):
+=======
+        self.response.write(my_template.render())
+
+# class LoginHandler(webabb2.RequestHandler):
+>>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
 #     def get(self):
 #         scope = 'user-library-read'
 #
@@ -74,9 +80,17 @@ class MainHandler(webapp2.RequestHandler):
 #                 print track['name'] + ' - ' + track['artists'][0]['name']
 #         else:
 #             print "Can't get token for", username
+<<<<<<< HEAD
+=======
+#         self.response.write("this is loaded")
+>>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
 
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
+<<<<<<< HEAD
     # ('/Amelia', AmeliaHandler)
+=======
+    ('/login',LoginHandler)
+>>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
 ], debug=True)
