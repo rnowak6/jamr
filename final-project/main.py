@@ -53,8 +53,13 @@ class MainHandler(webapp2.RequestHandler):
         #     self.response.write(my_template.render(render_data))
         #     # self.response.write(gif_url)
 
+class LoginHandler(webapp2.RequestHandler):
+    def get(self):
+        my_template=jinja_environment.get_template("templates/login.html")
+        self.response.write(my_template.render())
 
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
+    ('/login',LoginHandler)
 ], debug=True)
