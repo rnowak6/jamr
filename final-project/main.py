@@ -40,18 +40,19 @@ class MainHandler(webapp2.RequestHandler):
         places_json_content = places_data_source.read()
         parsed_places_dictionary = json.loads(places_json_content)
         results = parsed_places_dictionary["results"]
+
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="
-        api_key = "&key=AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
+        api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
         query = "places in Chicago"
         search_params = {"query": query, "api_key": api_key}
-        # search_url = base_url + urllib.urlencode(search_params)
-        search_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subwaysinChicago&key=AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
+        search_url = base_url + urllib.urlencode(search_params)
         search_url_data_source = urllib2.urlopen(search_url)
         search_url_json_content = search_url_data_source.read()
         parsed_search_url_dictionary = json.loads(search_url_json_content)
         search_url_results = parsed_search_url_dictionary["results"]
         latlngList = []
-        for result in search_url_results:
+        # for result in search_url_results:
+        for result in results:
             latlngDict = result["geometry"]["location"]
             lat = latlngDict["lat"]
             lng = latlngDict["lng"]
@@ -59,14 +60,25 @@ class MainHandler(webapp2.RequestHandler):
         render_data = { "lat": lat, "lng": lng, "coordinate_list" : latlngList}
         self.response.write(my_template.render(render_data))
 
-        # url_params = {'q': search, 'api_key': 'dc6zaTOxFJmzC', 'limit': 10}
-        #     giphy_response = urllib2.urlopen(base_url + urllib.urlencode(url_params)).read()
-        #     parsed_giphy_response_dictionary = json.loads(giphy_response)
-        #     giphy_url = parsed_giphy_response_dictionary['data'][i]['images']['original']['url']
-        #     render_data = { "image": gif_url, "image2": giphy_url}
-        #     # self.response.write(my_template.render(gif_url))
-        #     self.response.write(my_template.render(render_data))
-        #     # self.response.write(gif_url)
+class LocationInformationHandler(webapp2.RequestHandler):
+    def get(self):
+        my_template=jinja_environment.get_template("templates/LocationInformation.html")
+        information_data_source = urllib2.urlopen(
+        "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subway%20in%20New%20York%20City&key=AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
+        )
+        information_json_content = information_data_source.read()
+        parsed_information_dictionary = json.loads(information_json_content)
+        results = parsed_information_dictionary["results"]
+        nameList = []
+        # hoursList = []
+        for result in results:
+            nameDict = result["name"]
+            ratingDict = result["rating"]
+            nameList.append((nameDict, ratingDict))
+        render_data = {"name": nameList}
+        self.response.write(my_template.render(render_data))
+
+
 
 class LoginHandler(webapp2.RequestHandler):
     def get(self):
@@ -81,5 +93,6 @@ class LoginHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/login',LoginHandler)
+    ('/login',LoginHandler),
+    ('/Info', LocationInformationHandler)
 ], debug=True)
