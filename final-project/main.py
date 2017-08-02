@@ -21,6 +21,7 @@ import webapp2
 import urllib2
 import json
 import urllib
+from spotify_data_model import spotifyUserInfo
 # import spotipy
 # import sys
 # import spotipy.util as util
@@ -57,9 +58,18 @@ class MainHandler(webapp2.RequestHandler):
         #     self.response.write(my_template.render(render_data))
         #     # self.response.write(gif_url)
 
-
+class LoginHandler(webapp2.RequestHandler):
+    def get(self):
+        my_template=jinja_environment.get_template("templates/login.html")
+        render_data={}
+        username=self.request.get("username")
+        render_data['name']=username
+        self.response.write(my_template.render(render_data))
+        spotify_user=spotifyUserInfo(postUserName=username)
+        spotify_user.put()
 
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
+    ('/login',LoginHandler)
 ], debug=True)
