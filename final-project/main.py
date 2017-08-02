@@ -36,16 +36,16 @@ class MainHandler(webapp2.RequestHandler):
         # search = self.request.get("search")
         my_template = jinja_environment.get_template("templates/test.html")
         places_data_source = urllib2.urlopen(
-            "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subwaysinChicago&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg")
+            "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subwaysinChicago&key=AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0")
         places_json_content = places_data_source.read()
         parsed_places_dictionary = json.loads(places_json_content)
         results = parsed_places_dictionary["results"]
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="
-        api_key = "&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg"
+        api_key = "&key=AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
         query = "places in Chicago"
         search_params = {"query": query, "api_key": api_key}
         # search_url = base_url + urllib.urlencode(search_params)
-        search_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subwaysinChicago&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg"
+        search_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subwaysinChicago&key=AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
         search_url_data_source = urllib2.urlopen(search_url)
         search_url_json_content = search_url_data_source.read()
         parsed_search_url_dictionary = json.loads(search_url_json_content)
@@ -78,44 +78,8 @@ class LoginHandler(webapp2.RequestHandler):
         spotify_user=spotifyUserInfo(postUserName=username)
         spotify_user.put()
 
-<<<<<<< HEAD
-# class AmeliaHandler(webapp2.RequestHandler):
-#     def get(self):
-#         scope = 'user-library-read'
-#
-#         if len(sys.argv) > 1:
-#             username = sys.argv[1]
-#         else:
-#             print "Usage: %s username" % (sys.argv[0],)
-#             sys.exit()
-#
-#         token = util.prompt_for_user_token(username, scope)
-#
-#         if token:
-#             sp = spotipy.Spotify(auth=token)
-#             results = sp.current_user_saved_tracks()
-#             for item in results['items']:
-#                 track = item['track']
-#                 print track['name'] + ' - ' + track['artists'][0]['name']
-#         else:
-#             print "Can't get token for", username
-# <<<<<<< HEAD
-# =======
-# #         self.response.write("this is loaded")
-# >>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
-#
-#
-app = webapp2.WSGIApplication([
-    ('/', MainHandler),
-# <<<<<<< HEAD
-#     # ('/Amelia', AmeliaHandler)
-# =======
-    # ('/login',LoginHandler)
-# >>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
-=======
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login',LoginHandler)
->>>>>>> 381aa77889827ade236f11c8f89cb9a63e3df2d1
 ], debug=True)
