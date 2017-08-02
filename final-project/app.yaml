@@ -22,8 +22,5 @@ libraries:
   version: "2.5.2"
 - name: PIL
   version: latest
-<<<<<<< HEAD
 # - name: spotipy
 #   version: "2.4.4"
-=======
->>>>>>> bb02512916c9dc2ff6069445c845680c70eeda72

@@ -35,12 +35,22 @@ class MainHandler(webapp2.RequestHandler):
         # search = self.request.get("search")
         my_template = jinja_environment.get_template("templates/test.html")
         places_data_source = urllib2.urlopen(
-            "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subway%20in%20New%20York%20City&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg")
+            "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subwaysinChicago&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg")
         places_json_content = places_data_source.read()
         parsed_places_dictionary = json.loads(places_json_content)
         results = parsed_places_dictionary["results"]
+        base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="
+        api_key = "&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg"
+        query = "places in Chicago"
+        search_params = {"query": query, "api_key": api_key}
+        # search_url = base_url + urllib.urlencode(search_params)
+        search_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subwaysinChicago&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg"
+        search_url_data_source = urllib2.urlopen(search_url)
+        search_url_json_content = search_url_data_source.read()
+        parsed_search_url_dictionary = json.loads(search_url_json_content)
+        search_url_results = parsed_search_url_dictionary["results"]
         latlngList = []
-        for result in results:
+        for result in search_url_results:
             latlngDict = result["geometry"]["location"]
             lat = latlngDict["lat"]
             lng = latlngDict["lng"]
@@ -58,7 +68,6 @@ class MainHandler(webapp2.RequestHandler):
         #     # self.response.write(gif_url)
 
 
-<<<<<<< HEAD
 # class AmeliaHandler(webapp2.RequestHandler):
 #     def get(self):
 #         scope = 'user-library-read'
@@ -92,9 +101,4 @@ app = webapp2.WSGIApplication([
 # =======
     # ('/login',LoginHandler)
 # >>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
-=======
-
-app = webapp2.WSGIApplication([
-    ('/', MainHandler),
->>>>>>> 309431d13af94d166777212558fb51cf3148db83
 ], debug=True)
