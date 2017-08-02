@@ -5,9 +5,9 @@ import spotipy.util as util
 import os
 from spotipy.oauth2 import SpotifyClientCredentials
 import json
+from spotipyintegration import getGenres
 
-
-def playlistGenre(ameliasMethodreturn):
+def playlistGenre(getGenres):
     genreDict = {
         "rock" : 0,
         "pop" : 0,
@@ -24,15 +24,15 @@ def playlistGenre(ameliasMethodreturn):
         "edm" : 0,
         "alternative" : 0,
     }
-    for item in listFromAmeliasMethodReturn():
+    for item in getGenres():
         if item == "rock":
-            genreDict["rock"] +=
+            genreDict["rock"] = genreDict["rock"] + 1
         if item == "pop":
-            genreDict['pop'] +=
+            genreDict['pop'] = genreDict['pop'] + 1
         if item == "metal":
-            genreDict["metal"] +=
-        if item == "blues" or item == "blues-rock":
-            genreDict["blues"] +=
+            genreDict["metal"] = genreDict["metal"] + 1
+        if item == "blues":
+            genreDict["blues"] = genreDict["blues"] + 1
         if item == "dance pop":
             genreDict["dancepop"] +=
         if item == "rap":
@@ -53,7 +53,7 @@ def playlistGenre(ameliasMethodreturn):
             genreDict["edm"] +=
         if item == "alternative":
             genreDict["alternative"] +=
-            
+
         maxNumber = 0
         maxGenre = ""
         for genre in genreDict:
