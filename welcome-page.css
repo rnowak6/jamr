@@ -19,9 +19,13 @@
   position: absolute;
   background-color: blue;
   color:black;
-  left: 48%;
+  left: 45%;
   height: 40;
+  width: 100;
+  font-size: 20;
   border-radius: 20%;
+  display: inline-block;
+  border: none;
 
 }
 
@@ -64,6 +68,7 @@ span {
     font-size: 30;
     z-index: 1;
     color: white;
+    border-radius: 20%;
 }
 
 .dropdown:hover .dropdown-content {
