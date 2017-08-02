@@ -43,7 +43,7 @@ jinja_environment = jinja2.Environment(
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         # search = self.request.get("search")
-        # my_template = jinja_environment.get_template("templates/test.html")
+        my_template = jinja_environment.get_template("templates/test.html")
         # places_data_source = urllib2.urlopen(
         #     "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subwaysinChicago&key=AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0")
         # places_json_content = places_data_source.read()
