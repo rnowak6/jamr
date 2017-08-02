@@ -28,13 +28,14 @@ import sys
 import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
-
+#sp = spotipy.Spotify(SpotifyClientCredentials(client_id='2121dea381d948d38a492624ddddf03a',client_secret='12197784c3434ea6b407f11b4b993c8e'))
 # sp = spotipy.Spotify()
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
-
+# client_id= os.getenv("SPOTIPY_CLIENT_ID")
+# client_secret=os.getenv("SPOTIPY_CLIENT_SECRET")
 
 
 class MainHandler(webapp2.RequestHandler):
@@ -95,6 +96,7 @@ class LocationInformationHandler(webapp2.RequestHandler):
         render_data = {"longName": longName, "name": nameList}
         self.response.write(my_template.render(render_data))
 
+<<<<<<< HEAD
 class idHandler(webapp2.RequestHandler):
     def get(self):
         my_template=jinja_environment.get_template("templates/LocationInformation.html")
@@ -112,15 +114,23 @@ class idHandler(webapp2.RequestHandler):
         self.response.write(my_template.render(render_data))
 
 
+=======
+client_credentials_manager = SpotifyClientCredentials()
+sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+>>>>>>> 757b8561ed0c95ccfbeb9d565b68e797387e0dd0
 
 class LoginHandler(webapp2.RequestHandler):
-
-    client_credentials_manager = SpotifyClientCredentials()
-    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
-    def getGenres(username):
-        # query=spotifyUserInfo.query()
-        # user=query.fetch()[0].postUserName
+    # client_id=os.getenv("SPOTIPY_CLIENT_ID")
+    # client_secret= os.getenv("SPOTIPY_CLIENT_SECRET")
+    # client_credentials_manager = SpotifyClientCredentials(client_id,client_secret)
+    # sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+    os.environ['SPOTIPY_CLIENT_ID']='2121dea381d948d38a492624ddddf03a'
+    os.environ['SPOTIPY_CLIENT_SECRET']='12197784c3434ea6b407f11b4b993c8e'
+    client_id=os.environ['SPOTIPY_CLIENT_ID']
+    client_secret=os.environ['SPOTIPY_CLIENT_SECRET']
+    def getGenres(self):
+        query=spotifyUserInfo.query()
+        username=query.fetch()[3].postUserName
         playlists = sp.user_playlists(username)
         playlist=playlists['items'][0]
         length = playlist['tracks']['total']
@@ -146,6 +156,9 @@ class LoginHandler(webapp2.RequestHandler):
         return types_of_songs
 
     def get(self):
+
+        client_credentials_manager = SpotifyClientCredentials()
+        sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
         my_template=jinja_environment.get_template("templates/login.html")
         render_data={}
         username=self.request.get("username")
@@ -153,7 +166,7 @@ class LoginHandler(webapp2.RequestHandler):
             spotify_user=spotifyUserInfo(postUserName=username)
             spotify_user.put()
         render_data['name']=username
-        render_data['genres']=getGenres(username)
+        render_data['genres']=self.getGenres()
         self.response.write(my_template.render(render_data))
 
 class ServiceHandler(webapp2.RequestHandler):
@@ -164,12 +177,21 @@ class ServiceHandler(webapp2.RequestHandler):
         render_data['list_of_users'] = query.fetch()
         self.response.write(my_template.render(render_data))
 
+class TestHandler(webapp2.RequestHandler):
+    def get(self):
+        spotify=spotipy.Spotify()
+        results = spotify.search(q='artist:' + "Coldplay", type='artist')
+        self.response.write(results)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login',LoginHandler),
     ('/Info', LocationInformationHandler),
     ('/service',ServiceHandler),
+<<<<<<< HEAD
     ('/id', idHandler)
+=======
+    ('/test',TestHandler)
+>>>>>>> 757b8561ed0c95ccfbeb9d565b68e797387e0dd0
 
 ], debug=True)
