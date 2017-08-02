@@ -34,25 +34,25 @@ def playlistGenre(getGenres):
         if item == "blues":
             genreDict["blues"] = genreDict["blues"] + 1
         if item == "dance pop":
-            genreDict["dancepop"] +=
+            genreDict["dancepop"] = genreDict["dancepop"] + 1
         if item == "rap":
-            genreDict["rap"] +=
+            genreDict["rap"] = genreDict["rap"] + 1
         if item == "tropical house":
-            genreDict["tropicalHouse"] +=
+            genreDict["tropicalHouse"] = genreDict["tropicalHouse"] + 1
         if item == "trap music":
-            genreDict["trapMusic"] +=
+            genreDict["trapMusic"] = genreDict["trapMusic"] + 1
         if item == "modern rock":
-            genreDict["modernRock"] +=
+            genreDict["modernRock"] = genreDict["modernRock"] + 1
         if item == "hip hop":
-            genreDict["hipHop"] +=
+            genreDict["hipHop"] = genreDict["hipHop"] + 1
         if item == "classical":
-            genreDict["classical"] +=
+            genreDict["classical"] = genreDict["classical"] + 1
         if item == "latin":
-            genreDict["latin"] +=
+            genreDict["latin"] = genreDict["latin"] + 1
         if item == "edm":
-            genreDict["edm"] +=
+            genreDict["edm"] = genreDict["edm"] + 1
         if item == "alternative":
-            genreDict["alternative"] +=
+            genreDict["alternative"] = genreDict["alternative"] + 1
 
         maxNumber = 0
         maxGenre = ""
