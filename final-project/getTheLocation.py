@@ -60,19 +60,20 @@ def playlistGenre(getGenres):
             if genreDict[genre] > maxNumber:
                 maxNumber = genreDict[genre]
                 maxGenre = genre
+    print maxGenre
     return maxGenre
 
 
 def assignLocation(playlistGenre):
 
     genreReference = {
-        "pop" : "go to the beach",
-        "dance pop" : "zumba class",
-        "metal" : "Eva's burger place",
-        "classical" : "CSO, Art Institute",
+        "pop" : "beach",
+        "dance pop" : "zumba",
+        "metal" : "burger place",
+        "classical" : "Art Institute",
         "tropical house" : "coffee shop",
         "trap" : "road trip",
-        "rap" : "",
+        "rap" : "park",
         "modern rock" : "",
         "hip hop": "dance class",
         "latin" : "",
@@ -81,3 +82,5 @@ def assignLocation(playlistGenre):
         "alternative rock" : "urban outfitters"
     }
     return genreReference[playlistGenre]
+user=raw_input("Username: ")
+playlistGenre(getGenres(user))
