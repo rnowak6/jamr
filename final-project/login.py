@@ -30,10 +30,10 @@ def getGenres():
         artist_name= playlist_tracks['items'][i]['track']['artists'][0]['name']
         artist_id= playlist_tracks['items'][i]['track']['artists'][0]['id']
         artist_genre=sp.artist(artist_id)['genres']
-        if (artist_genre!=[]):
+        if (artist_genre!=None):
             types_of_songs.append(artist_genre[0])
-        else:
-            types_of_songs.append(None)
+        # else:
+        #     types_of_songs.append(None)
         artists.append(artist_name)
 
         #for i in range(len(artists)):

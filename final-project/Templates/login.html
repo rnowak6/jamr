@@ -16,5 +16,9 @@
     </form>
   </div>
   <p>Username is: {{name}}</p>
+  <p>Genres:</p>
+  {%for genre_type in genres%}
+  <p>{{genre_type}}</p>
+  {%endfor%}
 </body>
 </html>
