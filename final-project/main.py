@@ -112,7 +112,7 @@ class ServiceHandler(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login',LoginHandler),
-    ('/Info', LocationInformationHandler)
-    ('/servic'),ServiceHandler
+    ('/Info', LocationInformationHandler),
+    ('/service',ServiceHandler)
 
 ], debug=True)
