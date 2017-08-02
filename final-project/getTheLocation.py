@@ -24,35 +24,36 @@ def playlistGenre(ameliasMethodreturn):
         "edm" : 0,
         "alternative" : 0,
     }
-        for item in listFromAmeliasMethodReturn():
-            if item == "rock":
-                genreDict["rock"] +=
-            if item == "pop":
-                genreDict['pop'] +=
-            if item == "metal":
-                genreDict["metal"] +=
-            if item == "blues" or item == "blues-rock":
-                genreDict["blues"] +=
-            if item == "dance pop":
-                genreDict["dancepop"] +=
-            if item == "rap":
-                genreDict["rap"] +=
-            if item == "tropical house":
-                genreDict["tropicalHouse"] +=
-            if item == "trap music":
-                genreDict["trapMusic"] +=
-            if item == "modern rock":
-                genreDict["modernRock"] +=
-            if item == "hip hop":
-                genreDict["hipHop"] +=
-            if item == "classical":
-                genreDict["classical"] +=
-            if item == "latin":
-                genreDict["latin"] +=
-            if item == "edm":
-                genreDict["edm"] +=
-            if item == "alternative":
-                genreDict["alternative"] +=
+    for item in listFromAmeliasMethodReturn():
+        if item == "rock":
+            genreDict["rock"] +=
+        if item == "pop":
+            genreDict['pop'] +=
+        if item == "metal":
+            genreDict["metal"] +=
+        if item == "blues" or item == "blues-rock":
+            genreDict["blues"] +=
+        if item == "dance pop":
+            genreDict["dancepop"] +=
+        if item == "rap":
+            genreDict["rap"] +=
+        if item == "tropical house":
+            genreDict["tropicalHouse"] +=
+        if item == "trap music":
+            genreDict["trapMusic"] +=
+        if item == "modern rock":
+            genreDict["modernRock"] +=
+        if item == "hip hop":
+            genreDict["hipHop"] +=
+        if item == "classical":
+            genreDict["classical"] +=
+        if item == "latin":
+            genreDict["latin"] +=
+        if item == "edm":
+            genreDict["edm"] +=
+        if item == "alternative":
+            genreDict["alternative"] +=
+            
         maxNumber = 0
         maxGenre = ""
         for genre in genreDict:
