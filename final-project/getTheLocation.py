@@ -5,9 +5,9 @@ import spotipy.util as util
 import os
 from spotipy.oauth2 import SpotifyClientCredentials
 import json
+from spotipyintegration import getGenres
 
-
-def playlistGenre(ameliasMethodreturn):
+def playlistGenre(getGenres):
     genreDict = {
         "rock" : 0,
         "pop" : 0,
@@ -24,55 +24,56 @@ def playlistGenre(ameliasMethodreturn):
         "edm" : 0,
         "alternative" : 0,
     }
-    for item in listFromAmeliasMethodReturn():
+    for item in getGenres():
         if item == "rock":
-            genreDict["rock"] +=
+            genreDict["rock"] = genreDict["rock"] + 1
         if item == "pop":
-            genreDict['pop'] +=
+            genreDict['pop'] = genreDict['pop'] + 1
         if item == "metal":
-            genreDict["metal"] +=
-        if item == "blues" or item == "blues-rock":
-            genreDict["blues"] +=
+            genreDict["metal"] = genreDict["metal"] + 1
+        if item == "blues":
+            genreDict["blues"] = genreDict["blues"] + 1
         if item == "dance pop":
-            genreDict["dancepop"] +=
+            genreDict["dancepop"] = genreDict["dancepop"] + 1
         if item == "rap":
-            genreDict["rap"] +=
+            genreDict["rap"] = genreDict["rap"] + 1
         if item == "tropical house":
-            genreDict["tropicalHouse"] +=
+            genreDict["tropicalHouse"] = genreDict["tropicalHouse"] + 1
         if item == "trap music":
-            genreDict["trapMusic"] +=
+            genreDict["trapMusic"] = genreDict["trapMusic"] + 1
         if item == "modern rock":
-            genreDict["modernRock"] +=
+            genreDict["modernRock"] = genreDict["modernRock"] + 1
         if item == "hip hop":
-            genreDict["hipHop"] +=
+            genreDict["hipHop"] = genreDict["hipHop"] + 1
         if item == "classical":
-            genreDict["classical"] +=
+            genreDict["classical"] = genreDict["classical"] + 1
         if item == "latin":
-            genreDict["latin"] +=
+            genreDict["latin"] = genreDict["latin"] + 1
         if item == "edm":
-            genreDict["edm"] +=
+            genreDict["edm"] = genreDict["edm"] + 1
         if item == "alternative":
-            genreDict["alternative"] +=
-            
+            genreDict["alternative"] = genreDict["alternative"] + 1
+
         maxNumber = 0
         maxGenre = ""
         for genre in genreDict:
             if genreDict[genre] > maxNumber:
                 maxNumber = genreDict[genre]
                 maxGenre = genre
+    print maxGenre
     return maxGenre
 
 
 def assignLocation(playlistGenre):
 
     genreReference = {
-        "pop" : "go to the beach",
-        "dance pop" : "zumba class",
-        "metal" : "Eva's burger place",
-        "classical" : "CSO, Art Institute",
+        "pop" : "beach",
+        "dance pop" : "zumba",
+        "metal" : "burger place",
+        "classical" : "Art Institute",
         "tropical house" : "coffee shop",
         "trap" : "road trip",
-        "rap" : "",
+        "rap" : "park",
         "modern rock" : "",
         "hip hop": "dance class",
         "latin" : "",
@@ -81,3 +82,5 @@ def assignLocation(playlistGenre):
         "alternative rock" : "urban outfitters"
     }
     return genreReference[playlistGenre]
+user=raw_input("Username: ")
+playlistGenre(getGenres(user))

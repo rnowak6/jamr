@@ -41,8 +41,8 @@ def getGenres(user):
     if playlist_tracks['next']:
         playlist_tracks = sp.next(playlist_tracks)
     else:
-            playlist_tracks = None
+        playlist_tracks = None
     return types_of_songs
 
-#user=raw_input("Username: ")
-#print getGenres(user)
+user=raw_input("Username: ")
+print getGenres(user)
