@@ -1,4 +1,3 @@
-
 import spotipy
 import pprint
 import sys
@@ -6,17 +5,22 @@ import spotipy.util as util
 import os
 from spotipy.oauth2 import SpotifyClientCredentials
 import json
+#from google.appengine.ext import ndb
+from spotify_data_model import spotifyUserInfo
 
 client_credentials_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
+#my_user=spotifyUserInfo(postUserName=amelialutz9)
 
 def getGenres():
-    user=raw_input("What is your username?")
+    query=spotifyUserInfo.query()
+
+    user=query.fetch()[0].postUserName
     playlists = sp.user_playlists(user)
     playlist=playlists['items'][0]
     length = playlist['tracks']['total']
-    #print playlist
+        #print playlist
     print length
     playlist_name=playlists['items'][0]['name']
     print playlist_name
@@ -33,8 +37,8 @@ def getGenres():
             types_of_songs.append(None)
         artists.append(artist_name)
 
-    #for i in range(len(artists)):
-        #print "%s. %s-%s"%(i+1,artists[i],types_of_songs[i])
+        #for i in range(len(artists)):
+            #print "%s. %s-%s"%(i+1,artists[i],types_of_songs[i])
     if playlist_tracks['next']:
         playlist_tracks = sp.next(playlist_tracks)
     else:
