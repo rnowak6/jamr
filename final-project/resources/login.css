@@ -1,0 +1,41 @@
+body .login_div {
+  padding: 50px;
+  background-color: #a2f9c3;
+  border-style: outset;
+  border-radius: 5px;
+  margin: 10px;
+  display: inline-grid;
+  width: 200px;
+  border-width: 3px;
+}
+
+input {
+  margin: 5px
+}
+
+body {
+  text-align: center;
+  font-family: "Palatino", serif;
+  background-image: url("mountains.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#login_header {
+  font-family: fantasy;
+}
+
+#header_div {
+  padding: 10px;
+  background-color: #ee9ffc;
+  border-style: outset;
+}
+
+button {
+  background-color: #fcfc9f;
+  border-radius: 5px;
+  width: 75px;
+  padding: 7px;
+  border-style: outset;
+  font-family: monospace;
+}

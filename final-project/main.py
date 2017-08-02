@@ -21,6 +21,7 @@ import webapp2
 import urllib2
 import json
 import urllib
+from spotify_data_model import spotifyUserInfo
 # import spotipy
 # import sys
 # import spotipy.util as util
@@ -67,7 +68,17 @@ class MainHandler(webapp2.RequestHandler):
         #     self.response.write(my_template.render(render_data))
         #     # self.response.write(gif_url)
 
+class LoginHandler(webapp2.RequestHandler):
+    def get(self):
+        my_template=jinja_environment.get_template("templates/login.html")
+        render_data={}
+        username=self.request.get("username")
+        render_data['name']=username
+        self.response.write(my_template.render(render_data))
+        spotify_user=spotifyUserInfo(postUserName=username)
+        spotify_user.put()
 
+<<<<<<< HEAD
 # class AmeliaHandler(webapp2.RequestHandler):
 #     def get(self):
 #         scope = 'user-library-read'
@@ -101,4 +112,10 @@ app = webapp2.WSGIApplication([
 # =======
     # ('/login',LoginHandler)
 # >>>>>>> 66c3a0e7ff3033229f05b8c89793785ae9920ccc
+=======
+
+app = webapp2.WSGIApplication([
+    ('/', MainHandler),
+    ('/login',LoginHandler)
+>>>>>>> 381aa77889827ade236f11c8f89cb9a63e3df2d1
 ], debug=True)
