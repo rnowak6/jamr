@@ -23,20 +23,18 @@ import urllib2
 import json
 import urllib
 from spotify_data_model import spotifyUserInfo
-
-# import spotipy
-# import sys
-# import spotipy.util as util
-# from spotipy.oauth2 import SpotifyClientCredentials
-# import pprint
+import spotipy
+import sys
+import spotipy.util as util
+from spotipy.oauth2 import SpotifyClientCredentials
+import pprint
 
 # sp = spotipy.Spotify()
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
-# client_credentials_manager = SpotifyClientCredentials()
-# sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
 
 
 class MainHandler(webapp2.RequestHandler):
@@ -89,6 +87,37 @@ class LocationInformationHandler(webapp2.RequestHandler):
 
 
 class LoginHandler(webapp2.RequestHandler):
+
+    client_credentials_manager = SpotifyClientCredentials()
+    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
+    def getGenres(username):
+        # query=spotifyUserInfo.query()
+        # user=query.fetch()[0].postUserName
+        playlists = sp.user_playlists(username)
+        playlist=playlists['items'][0]
+        length = playlist['tracks']['total']
+        print length
+        playlist_name=playlists['items'][0]['name']
+        print playlist_name
+        playlist_tracks=sp.user_playlist_tracks(user,playlist['uri'],limit=100,offset=0)
+        artists=[]
+        types_of_songs=[]
+        for i in range(length):
+            artist_name= playlist_tracks['items'][i]['track']['artists'][0]['name']
+            artist_id= playlist_tracks['items'][i]['track']['artists'][0]['id']
+            artist_genre=sp.artist(artist_id)['genres']
+            if (artist_genre!=[]):
+                types_of_songs.append(artist_genre[0])
+            else:
+                types_of_songs.append(None)
+            artists.append(artist_name)
+        if playlist_tracks['next']:
+            playlist_tracks = sp.next(playlist_tracks)
+        else:
+                playlist_tracks = None
+        return types_of_songs
+
     def get(self):
         my_template=jinja_environment.get_template("templates/login.html")
         render_data={}
@@ -97,7 +126,7 @@ class LoginHandler(webapp2.RequestHandler):
             spotify_user=spotifyUserInfo(postUserName=username)
             spotify_user.put()
         render_data['name']=username
-
+        render_data['genres']=getGenres(username)
         self.response.write(my_template.render(render_data))
 
 class ServiceHandler(webapp2.RequestHandler):
