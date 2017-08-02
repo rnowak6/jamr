@@ -73,7 +73,8 @@ class SpotifyClientCredentials(object):
 
         response = requests.post(self.OAUTH_TOKEN_URL, data=payload,
             headers=headers, verify=True, proxies=self.proxies)
-        if response.status_code is not 200:
+        if response.status_code != 200:
+            print(response.status_code)
             raise SpotifyOauthError(response.reason)
         token_info = response.json()
         return token_info
