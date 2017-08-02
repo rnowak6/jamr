@@ -41,25 +41,25 @@ jinja_environment = jinja2.Environment(
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         # search = self.request.get("search")
-        my_template = jinja_environment.get_template("templates/test.html")
-        places_data_source = urllib2.urlopen(
-            "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subwaysinChicago&key=AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0")
-        places_json_content = places_data_source.read()
-        parsed_places_dictionary = json.loads(places_json_content)
-        results = parsed_places_dictionary["results"]
+        # my_template = jinja_environment.get_template("templates/test.html")
+        # places_data_source = urllib2.urlopen(
+        #     "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subwaysinChicago&key=AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0")
+        # places_json_content = places_data_source.read()
+        # parsed_places_dictionary = json.loads(places_json_content)
+        # results = parsed_places_dictionary["results"]
 
-        base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="
+        base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
         api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
         query = "places in Chicago"
-        search_params = {"query": query, "api_key": api_key}
+        search_params = {"query": query, "key": api_key}
         search_url = base_url + urllib.urlencode(search_params)
         search_url_data_source = urllib2.urlopen(search_url)
         search_url_json_content = search_url_data_source.read()
         parsed_search_url_dictionary = json.loads(search_url_json_content)
         search_url_results = parsed_search_url_dictionary["results"]
         latlngList = []
-        # for result in search_url_results:
-        for result in results:
+        print search_url
+        for result in search_url_results:
             latlngDict = result["geometry"]["location"]
             lat = latlngDict["lat"]
             lng = latlngDict["lng"]
@@ -70,19 +70,31 @@ class MainHandler(webapp2.RequestHandler):
 class LocationInformationHandler(webapp2.RequestHandler):
     def get(self):
         my_template=jinja_environment.get_template("templates/LocationInformation.html")
-        information_data_source = urllib2.urlopen(
-        "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subway%20in%20New%20York%20City&key=AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
-        )
-        information_json_content = information_data_source.read()
-        parsed_information_dictionary = json.loads(information_json_content)
-        results = parsed_information_dictionary["results"]
+        # information_data_source = urllib2.urlopen(
+        # "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg"
+        # )
+        # information_json_content = information_data_source.read()
+        # parsed_information_dictionary = json.loads(information_json_content)
+        # results = parsed_information_dictionary["results"]
+        base_url = "https://maps.googleapis.com/maps/api/place/details/json?"
+        api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
+        placeid = "ChIJN1t_tDeuEmsRUsoyG83frY4"
+        Info_params = {"placeid": placeid, "key": api_key}
+        Info_url = base_url + urllib.urlencode(Info_params)
+        Info_url_data_source = urllib2.urlopen(Info_url)
+        Info_url_json_content = Info_url_data_source.read()
+        parsed_Info_url_dictionary = json.loads(Info_url_json_content)
+        Info_url_results = parsed_Info_url_dictionary["result"]
         nameList = []
         # hoursList = []
-        for result in results:
-            nameDict = result["name"]
-            ratingDict = result["rating"]
-            nameList.append((nameDict, ratingDict))
-        render_data = {"name": nameList}
+        for name in Info_url_results["address_components"]:
+            longName = name["long_name"]
+        # result == "address_components"
+        # print nameDict
+        # for name in nameDict:
+        #     longName = name["long_name"]
+            nameList.append(longName)
+        render_data = {"longName": longName, "name": nameList}
         self.response.write(my_template.render(render_data))
 
 client_credentials_manager = SpotifyClientCredentials()
