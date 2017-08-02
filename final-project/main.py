@@ -52,7 +52,7 @@ class MainHandler(webapp2.RequestHandler):
 
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
         api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
-        query = "places in Chicago"
+        query = "highschools in Chicago and coffee shops"
         search_params = {"query": query, "key": api_key}
         search_url = base_url + urllib.urlencode(search_params)
         search_url_data_source = urllib2.urlopen(search_url)
