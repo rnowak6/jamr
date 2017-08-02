@@ -101,7 +101,7 @@ class LocationInformationHandler(webapp2.RequestHandler):
 
 class idHandler(webapp2.RequestHandler):
     def get(self):
-        my_template=jinja_environment.get_template("templates/LocationInformation.html")
+        my_template=jinja_environment.get_template("templates/id.html")
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
         api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
         query = "places in Chicago"
@@ -111,8 +111,13 @@ class idHandler(webapp2.RequestHandler):
         search_url_json_content = search_url_data_source.read()
         parsed_search_url_dictionary = json.loads(search_url_json_content)
         search_url_results = parsed_search_url_dictionary["results"]
-        placeid = search_url_results["place_id"]
-        render_data = {"placeid": placeid}
+        # print search_url_results
+        placeidList = []
+        for search in search_url_results:
+            placeid = search["place_id"]
+            placeidList.append(placeid)
+        render_data = { "placeidList": placeidList}
+        # render_data = {"placeidList": search_url_results}
         self.response.write(my_template.render(render_data))
 
 
@@ -163,6 +168,5 @@ app = webapp2.WSGIApplication([
     ('/service',ServiceHandler),
     ('/id', idHandler),
     ('/test',TestHandler)
-
 
 ], debug=True)
