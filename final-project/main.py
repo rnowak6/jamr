@@ -28,6 +28,8 @@ import sys
 import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
+from spotipyintegration import getGenres
+
 #sp = spotipy.Spotify(SpotifyClientCredentials(client_id='2121dea381d948d38a492624ddddf03a',client_secret='12197784c3434ea6b407f11b4b993c8e'))
 # sp = spotipy.Spotify()
 
@@ -148,37 +150,8 @@ class LoginHandler(webapp2.RequestHandler):
     os.environ['SPOTIPY_CLIENT_SECRET']='12197784c3434ea6b407f11b4b993c8e'
     client_id=os.environ['SPOTIPY_CLIENT_ID']
     client_secret=os.environ['SPOTIPY_CLIENT_SECRET']
-    def getGenres(self):
-        query=spotifyUserInfo.query()
-        username=query.fetch()[3].postUserName
-        playlists = sp.user_playlists(username)
-        playlist=playlists['items'][0]
-        length = playlist['tracks']['total']
-        print length
-        playlist_name=playlists['items'][0]['name']
-        print playlist_name
-        playlist_tracks=sp.user_playlist_tracks(user,playlist['uri'],limit=100,offset=0)
-        artists=[]
-        types_of_songs=[]
-        for i in range(length):
-            artist_name= playlist_tracks['items'][i]['track']['artists'][0]['name']
-            artist_id= playlist_tracks['items'][i]['track']['artists'][0]['id']
-            artist_genre=sp.artist(artist_id)['genres']
-            if (artist_genre!=[]):
-                types_of_songs.append(artist_genre[0])
-            else:
-                types_of_songs.append(None)
-            artists.append(artist_name)
-        if playlist_tracks['next']:
-            playlist_tracks = sp.next(playlist_tracks)
-        else:
-                playlist_tracks = None
-        return types_of_songs
 
     def get(self):
-
-        client_credentials_manager = SpotifyClientCredentials()
-        sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
         my_template=jinja_environment.get_template("templates/login.html")
         render_data={}
         username=self.request.get("username")
@@ -186,7 +159,7 @@ class LoginHandler(webapp2.RequestHandler):
             spotify_user=spotifyUserInfo(postUserName=username)
             spotify_user.put()
         render_data['name']=username
-        render_data['genres']=self.getGenres()
+        render_data['genres']=getGenres(username)
         self.response.write(my_template.render(render_data))
 
 class ServiceHandler(webapp2.RequestHandler):
