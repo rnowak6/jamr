@@ -5,6 +5,7 @@
   text-align: center;
   font-size: 100;
   padding-right: 38%;
+  padding-top: 5%;
 
 }
 
@@ -29,7 +30,7 @@
 }
 
 #one{
-  color:blue;
+color: blue;
 }
 
 #two{
@@ -37,9 +38,34 @@
 }
 
 #three{
-  color:yellow;
+  color: yellow;
 }
 
 #four{
-color:green;
+  color:green;
+}
+span {
+  font-weight: bold;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    color: white;
+    font-size: 100;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #2E2E2E;
+    min-width: 80px;
+    padding: 10px 10px;
+    font-size: 30;
+    z-index: 1;
+    color: white;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
