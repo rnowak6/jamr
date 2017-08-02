@@ -6,7 +6,7 @@ import os
 from spotipy.oauth2 import SpotifyClientCredentials
 import json
 #from google.appengine.ext import ndb
-from spotify_data_model import spotifyUserInfo
+#from spotify_data_model import spotifyUserInfo
 
 client_credentials_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
@@ -14,9 +14,7 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 #my_user=spotifyUserInfo(postUserName=amelialutz9)
 
 def getGenres():
-    query=spotifyUserInfo.query()
-
-    user=query.fetch()[0].postUserName
+    user=raw_input("Username: ")
     playlists = sp.user_playlists(user)
     playlist=playlists['items'][0]
     length = playlist['tracks']['total']
