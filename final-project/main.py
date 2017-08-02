@@ -113,5 +113,6 @@ app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login',LoginHandler),
     ('/Info', LocationInformationHandler)
+    ('/servic'),ServiceHandler
 
 ], debug=True)
