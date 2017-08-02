@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 from google.appengine.ext import ndb
 import jinja2
 import os
@@ -22,14 +23,21 @@ import urllib2
 import json
 import urllib
 from spotify_data_model import spotifyUserInfo
+
 # import spotipy
 # import sys
 # import spotipy.util as util
+# from spotipy.oauth2 import SpotifyClientCredentials
+# import pprint
 
 # sp = spotipy.Spotify()
 
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
+
+# client_credentials_manager = SpotifyClientCredentials()
+# sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -85,14 +93,26 @@ class LoginHandler(webapp2.RequestHandler):
         my_template=jinja_environment.get_template("templates/login.html")
         render_data={}
         username=self.request.get("username")
+        if username!="":
+            spotify_user=spotifyUserInfo(postUserName=username)
+            spotify_user.put()
         render_data['name']=username
+
         self.response.write(my_template.render(render_data))
-        spotify_user=spotifyUserInfo(postUserName=username)
-        spotify_user.put()
+
+class ServiceHandler(webapp2.RequestHandler):
+    def get(self):
+        my_template=jinja_environment.get_template("templates/service.html")
+        render_data={}
+        query = spotifyUserInfo.query()
+        render_data['list_of_users'] = query.fetch()
+        self.response.write(my_template.render(render_data))
 
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login',LoginHandler),
-    ('/Info', LocationInformationHandler)
+    ('/Info', LocationInformationHandler),
+    ('/service',ServiceHandler)
+
 ], debug=True)
