@@ -96,10 +96,9 @@ class LocationInformationHandler(webapp2.RequestHandler):
         render_data = {"longName": longName, "name": nameList}
         self.response.write(my_template.render(render_data))
 
-<<<<<<< HEAD
 class idHandler(webapp2.RequestHandler):
     def get(self):
-        my_template=jinja_environment.get_template("templates/LocationInformation.html")
+        my_template=jinja_environment.get_template("templates/id.html")
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
         api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
         query = "places in Chicago"
@@ -109,15 +108,16 @@ class idHandler(webapp2.RequestHandler):
         search_url_json_content = search_url_data_source.read()
         parsed_search_url_dictionary = json.loads(search_url_json_content)
         search_url_results = parsed_search_url_dictionary["results"]
-        placeid = search_url_results["place_id"]
-        render_data = {"placeid": placeid}
+        # print search_url_results
+        placeidList = []
+        for search in search_url_results:
+            placeid = search["place_id"]
+            placeidList.append(placeid)
+        render_data = { "placeidList": placeidList}
+        # render_data = {"placeidList": search_url_results}
         self.response.write(my_template.render(render_data))
 
 
-=======
-client_credentials_manager = SpotifyClientCredentials()
-sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
->>>>>>> 757b8561ed0c95ccfbeb9d565b68e797387e0dd0
 
 class LoginHandler(webapp2.RequestHandler):
     # client_id=os.getenv("SPOTIPY_CLIENT_ID")
@@ -188,10 +188,7 @@ app = webapp2.WSGIApplication([
     ('/login',LoginHandler),
     ('/Info', LocationInformationHandler),
     ('/service',ServiceHandler),
-<<<<<<< HEAD
-    ('/id', idHandler)
-=======
+    ('/id', idHandler),
     ('/test',TestHandler)
->>>>>>> 757b8561ed0c95ccfbeb9d565b68e797387e0dd0
 
 ], debug=True)
