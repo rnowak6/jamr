@@ -96,7 +96,7 @@ class LocationInformationHandler(webapp2.RequestHandler):
         render_data = {"longName": longName, "name": nameList}
         self.response.write(my_template.render(render_data))
 
-<<<<<<< HEAD
+
 class idHandler(webapp2.RequestHandler):
     def get(self):
         my_template=jinja_environment.get_template("templates/LocationInformation.html")
@@ -114,10 +114,10 @@ class idHandler(webapp2.RequestHandler):
         self.response.write(my_template.render(render_data))
 
 
-=======
+
 client_credentials_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
->>>>>>> 757b8561ed0c95ccfbeb9d565b68e797387e0dd0
+
 
 class LoginHandler(webapp2.RequestHandler):
     # client_id=os.getenv("SPOTIPY_CLIENT_ID")
@@ -188,10 +188,10 @@ app = webapp2.WSGIApplication([
     ('/login',LoginHandler),
     ('/Info', LocationInformationHandler),
     ('/service',ServiceHandler),
-<<<<<<< HEAD
+
     ('/id', idHandler)
-=======
+
     ('/test',TestHandler)
->>>>>>> 757b8561ed0c95ccfbeb9d565b68e797387e0dd0
+
 
 ], debug=True)
