@@ -57,7 +57,6 @@ class MainHandler(webapp2.RequestHandler):
         parsed_search_url_dictionary = json.loads(search_url_json_content)
         search_url_results = parsed_search_url_dictionary["results"]
         latlngList = []
-        print search_url
         for result in search_url_results:
             latlngDict = result["geometry"]["location"]
             lat = latlngDict["lat"]
@@ -94,6 +93,22 @@ class LocationInformationHandler(webapp2.RequestHandler):
         #     longName = name["long_name"]
             nameList.append(longName)
         render_data = {"longName": longName, "name": nameList}
+        self.response.write(my_template.render(render_data))
+
+class idHandler(webapp2.RequestHandler):
+    def get(self):
+        my_template=jinja_environment.get_template("templates/LocationInformation.html")
+        base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
+        api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
+        query = "places in Chicago"
+        search_params = {"query": query, "key": api_key}
+        search_url = base_url + urllib.urlencode(search_params)
+        search_url_data_source = urllib2.urlopen(search_url)
+        search_url_json_content = search_url_data_source.read()
+        parsed_search_url_dictionary = json.loads(search_url_json_content)
+        search_url_results = parsed_search_url_dictionary["results"]
+        placeid = search_url_results["place_id"]
+        render_data = {"placeid": placeid}
         self.response.write(my_template.render(render_data))
 
 
@@ -154,6 +169,7 @@ app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/login',LoginHandler),
     ('/Info', LocationInformationHandler),
-    ('/service',ServiceHandler)
+    ('/service',ServiceHandler),
+    ('/id', idHandler)
 
 ], debug=True)
