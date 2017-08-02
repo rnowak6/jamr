@@ -12,6 +12,7 @@ client_credentials_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 #my_user=spotifyUserInfo(postUserName=amelialutz9)
+print client_credentials_manager
 
 def getGenres():
     user=raw_input("Username: ")
