@@ -29,7 +29,7 @@ def is_token_expired(token_info):
 class SpotifyClientCredentials(object):
     OAUTH_TOKEN_URL = 'https://accounts.spotify.com/api/token'
 
-    def __init__(self, client_id=None, client_secret=None, proxies=None):
+    def __init__(self, client_id= '60135c50d20e460486fa4db00c32118f', client_secret= '57400ce4022f4b7bab0956c4297d5693', proxies=None):
         """
         You can either provid a client_id and client_secret to the
         constructor or set SPOTIPY_CLIENT_ID and SPOTIPY_CLIENT_SECRET
@@ -262,4 +262,3 @@ class SpotifyOAuth(object):
 
     def _warn(self, msg):
         print('warning:' + msg, file=sys.stderr)
-

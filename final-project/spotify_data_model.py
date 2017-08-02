@@ -1,7 +1,6 @@
 from google.appengine.ext import ndb
 
 class spotifyUserInfo(ndb.Model):
-    postUser = ndb.KeyProperty()
-    postUserName = ndb.StringProperty()
-    playlist = ndb.KeyProperty()
-    # description = ndb.StringProperty()
+    userName = ndb.StringProperty()
+    playlist_genre = ndb.StringProperty()
+    locations = ndb.StringProperty(repeat=True)
