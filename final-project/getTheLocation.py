@@ -70,7 +70,7 @@ def assignLocation(playlistGenre):
     genreReference = {
         "pop" : "beach",
         "dancepop" : "zumba",
-        "metal" : "burger place",
+        "metal" : "motorcycles",
         "classical" : "Art Institute",
         "tropicalHouse" : "coffee shop",
         "trapMusic" : "road trip",
