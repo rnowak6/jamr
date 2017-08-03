@@ -8,6 +8,8 @@
 <body>
   <div id="header_div"><h1 id="login_header">Log In</h1></div>
   <p>Welcome to JAMR!</p>
+  <p>Our service will determine locations to visit based on</p>
+  <p>the genre of your first Spotify playlist!</p>
   <div class="login_div" id="previous_user">
     <form>
       Spotify Username: <input type="text" name="username"></input>
@@ -20,7 +22,7 @@
   {%for genre_type in genres%}
   <p>{{genre_type}}</p>
   {%endfor%} -->
-  <span id="genre_span"><h1>{{maxGenre}}:{{location}}</h1></span>
+  <span id="genre_span"><h1>{{maxGenre}} : {{location}}</h1></span>
 </br>
   <a href="https://sonic-potion-175714.appspot.com/go"><button>Go!</button></a>
 </body>
