@@ -5,7 +5,7 @@ function getLocation() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      window.location="https://sonic-potion-175714.appspot.com/go?lat="+pos['lat']+"&lng="+pos['lng'];
+      window.location="/go?lat="+pos['lat']+"&lng="+pos['lng'];
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
