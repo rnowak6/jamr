@@ -250,18 +250,17 @@ class ServiceHandler(webapp2.RequestHandler):
         render_data['list_of_users'] = query.fetch()
         self.response.write(my_template.render(render_data))
 
-class TestHandler(webapp2.RequestHandler):
+class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
-        spotify=spotipy.Spotify()
-        results = spotify.search(q='artist:' + "Coldplay", type='artist')
-        self.response.write(results)
+        my_template=jinja_environment.get_template("Templates/welcome-page.html")
+        self.response.write(my_template.render())
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler),
+    ('/',WelcomeHandler),
+    ('/go', MainHandler),
     ('/login',LoginHandler),
     ('/Info', LocationInformationHandler),
     ('/service',ServiceHandler),
-    ('/id', idHandler),
-    ('/test',TestHandler)
+    ('/id', idHandler)
 
 ], debug=True)
