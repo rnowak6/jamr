@@ -53,8 +53,8 @@ class MainHandler(webapp2.RequestHandler):
         # results = parsed_places_dictionary["results"]
 
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
-        api_key = "AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg"
-        query = "high schools in Chicago"
+        api_key = "AIzaSyAjMkxmL8taLeHU2oaENqmsZngProCoXaM"
+        query = "high schools"
         search_params = {"query": query, "key": api_key}
         search_url = base_url + urllib.urlencode(search_params)
         search_url_data_source = urllib2.urlopen(search_url)
@@ -71,7 +71,7 @@ class MainHandler(webapp2.RequestHandler):
         addressList = []
         for placeid in placeidList:
             base_url = "https://maps.googleapis.com/maps/api/place/details/json?"
-            api_key = "AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg"
+            api_key = "AIzaSyAjMkxmL8taLeHU2oaENqmsZngProCoXaM"
             placeid = placeid
             Info_params = {"placeid": placeid, "key": api_key}
             Info_url = base_url + urllib.urlencode(Info_params)
@@ -110,7 +110,7 @@ class LocationInformationHandler(webapp2.RequestHandler):
     def get(self):
         my_template=jinja_environment.get_template("templates/LocationInformation.html")
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
-        api_key = "AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg"
+        api_key = "AIzaSyAjMkxmL8taLeHU2oaENqmsZngProCoXaM"
         query = "high schools"
         search_params = {"query": query, "key": api_key}
         search_url = base_url + urllib.urlencode(search_params)
@@ -128,7 +128,7 @@ class LocationInformationHandler(webapp2.RequestHandler):
         addressList = []
         for placeid in placeidList:
             base_url = "https://maps.googleapis.com/maps/api/place/details/json?"
-            api_key = "AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg"
+            api_key = "AIzaSyAjMkxmL8taLeHU2oaENqmsZngProCoXaM"
             placeid = placeid
             Info_params = {"placeid": placeid, "key": api_key}
             Info_url = base_url + urllib.urlencode(Info_params)
