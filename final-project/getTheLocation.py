@@ -31,7 +31,7 @@ def playlistGenre(getGenres):
             genreDict['pop'] = genreDict['pop'] + 1
         if item == "metal" or item == "alternative metal" or item == "nu metal" or item == "rap metal":
             genreDict["metal"] = genreDict["metal"] + 1
-        if item == "blues" or item == "soul" or item == "blues rock":
+        if item == "blues" or item == "soul" or item == "blues rock" or item == "jazz blues":
             genreDict["blues"] = genreDict["blues"] + 1
         if item == "dance pop":
             genreDict["dancepop"] = genreDict["dancepop"] + 1
@@ -39,19 +39,19 @@ def playlistGenre(getGenres):
             genreDict["rap"] = genreDict["rap"] + 1
         if item == "tropical house" or item =="neo mellow" or item == "mello gold" or item == "indietronica" or item == "synthpop" or item == "tropical":
             genreDict["tropicalHouse"] = genreDict["tropicalHouse"] + 1
-        if item == "trap music" or item == "dwn trap" or item == "trap latino":
+        if item == "trap music" or item == "dwn trap" or item == "trap latino" or item == "electric trap" or item == "bass trap":
             genreDict["trapMusic"] = genreDict["trapMusic"] + 1
         if item == "modern rock" or item == "":
             genreDict["modernRock"] = genreDict["modernRock"] + 1
-        if item == "hip hop" or item == "latin hip hop":
+        if item == "hip hop" or item == "latin hip hop" or item == "underground hip hop" or item == "deep german hip hop" or item == "hardcore hip hop" or item == "east coast hip hop":
             genreDict["hipHop"] = genreDict["hipHop"] + 1
         if item == "classical":
             genreDict["classical"] = genreDict["classical"] + 1
-        if item == "latin":
+        if item == "latin" or item == "latin hip hip" or item == "latin pop" or item == "latin alternative" or item == "spanish pop" or item == "trap latino":
             genreDict["latin"] = genreDict["latin"] + 1
-        if item == "edm":
+        if item == "edm" or item == "progressive electro house" or item == "noise pop" or item == "tracestep":
             genreDict["edm"] = genreDict["edm"] + 1
-        if item == "alternative":
+        if item == "alternative" or item == "alternative rock" or item == "indie pop" or item == "soft rock" or item == "indie folk" or item == "alternative dance" or item == "christian alternative rock":
             genreDict["alternative"] = genreDict["alternative"] + 1
 
         maxNumber = 0
@@ -72,15 +72,15 @@ def assignLocation(playlistGenre):
         "dancepop" : "zumba",
         "metal" : "burger place",
         "classical" : "Art Institute",
-        "tropicalHouse" : "coffee shop",
-        "trapMusic" : "road trip",
+        "tropicalhouse" : "coffee shop",
+        "trap" : "road trip",
         "rap" : "park",
-        "modernRock" : "",
-        "hipHop": "dance class",
+        "modernrock" : "",
+        "hiphop": "dance class",
         "latin" : "fire house",
         "edm" : "nightclubs",
         "country" : "go south",
-        "alternative" : "urban outfitters"
+        "alternativerock" : "urban outfitters"
     }
     found=genreReference.get(playlistGenre,None)
     if found is None:
