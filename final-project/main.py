@@ -192,14 +192,16 @@ class LoginHandler(webapp2.RequestHandler):
         my_template=jinja_environment.get_template("templates/login.html")
         render_data={}
         username=self.request.get("username")
-        if username!="":
-            spotify_user=spotifyUserInfo(postUserName=username)
-            spotify_user.put()
+
         render_data['name']=username
         render_data['genres']=getGenres(username)
         render_data['maxGenre']=playlistGenre(render_data['genres'])
         render_data['location']=assignLocation(render_data['maxGenre'])
+        if username!="":
+            spotify_user=spotifyUserInfo(postUserName=username,location=render_data['location'])
+            spotify_user.put()
         self.response.write(my_template.render(render_data))
+
 
 class ServiceHandler(webapp2.RequestHandler):
     def get(self):
