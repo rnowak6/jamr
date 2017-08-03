@@ -72,6 +72,7 @@ def assignLocation(playlistGenre):
         "dancepop" : "zumba",
         "metal" : "motorcycles",
         "classical" : "Art Institute",
+<<<<<<< HEAD
         "tropicalhouse" : "coffee shop",
         "trap" : "tattoo",
         "rap" : "Home depot",
@@ -80,6 +81,16 @@ def assignLocation(playlistGenre):
         "latin" : "salon",
         "edm" : "nightclubs",
         "country" : "old crow",
+=======
+        "tropicalHouse" : "coffee shop",
+        "trapMusic" : "road trip",
+        "rap" : "park",
+        "modernRock" : "",
+        "hipHop": "dance class",
+        "latin" : "fire house",
+        "edm" : "nightclubs",
+        "country" : "go south",
+>>>>>>> 12d5ea0c1b1542bb0a20b628e0e8cc7b9061d293
         "alternative" : "urban outfitters"
     }
     found=genreReference.get(playlistGenre,None)
