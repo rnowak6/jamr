@@ -22,9 +22,9 @@ def playlistGenre(getGenres):
         "classical" : 0,
         "latin" : 0,
         "edm" : 0,
-        "alternative" : 0,
+        "alternative" : 0
     }
-    for item in getGenres():
+    for item in getGenres:
         if item == "rock":
             genreDict["rock"] = genreDict["rock"] + 1
         if item == "pop":
@@ -60,6 +60,7 @@ def playlistGenre(getGenres):
             if genreDict[genre] > maxNumber:
                 maxNumber = genreDict[genre]
                 maxGenre = genre
+    print genreDict
     print maxGenre
     return maxGenre
 
@@ -76,7 +77,7 @@ def assignLocation(playlistGenre):
         "rap" : "park",
         "modern rock" : "",
         "hip hop": "dance class",
-        "latin" : "",
+        "latin" : "fire house",
         "edm" : "nightclubs",
         "country" : "go south",
         "alternative rock" : "urban outfitters"
