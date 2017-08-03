@@ -78,10 +78,14 @@ class MainHandler(webapp2.RequestHandler):
         for i in range(len(f_q)):
             if f_q[i].userNumber==max_user_num:
                 query=f_q[i].location
-        base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
-        api_key = "AIzaSyDJXaI_wsUlGgMbiEyzB0P4fBxywW8aXUQ"
+        base_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
+        lat = self.request.get("lat")
+        lng=self.request.get("lng")
+        location = "%s,%s"%(lat,lng)
+        radius = "3000"
+        api_key = "AIzaSyA2xB4MTIfq6ShDm0YzIhbHHUOY35raeW4"
         #query = "high schools in Chicago"
-        search_params = {"query": query, "key": api_key}
+        search_params = {"location": location, "radius":radius , "keyword": query, "key": api_key}
         search_url = base_url + urllib.urlencode(search_params)
         search_url_data_source = urllib2.urlopen(search_url)
         search_url_json_content = search_url_data_source.read()
@@ -97,7 +101,7 @@ class MainHandler(webapp2.RequestHandler):
         addressList = []
         for placeid in placeidList:
             base_url = "https://maps.googleapis.com/maps/api/place/details/json?"
-            api_key = "AIzaSyDJXaI_wsUlGgMbiEyzB0P4fBxywW8aXUQ"
+            api_key = "AIzaSyA2xB4MTIfq6ShDm0YzIhbHHUOY35raeW4"
             placeid = placeid
             Info_params = {"placeid": placeid, "key": api_key}
             Info_url = base_url + urllib.urlencode(Info_params)
@@ -138,7 +142,7 @@ class LocationInformationHandler(webapp2.RequestHandler):
     def get(self):
         my_template=jinja_environment.get_template("Templates/LocationInformation.html")
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
-        api_key = "AIzaSyDJXaI_wsUlGgMbiEyzB0P4fBxywW8aXUQ"
+        api_key = "AIzaSyA2xB4MTIfq6ShDm0YzIhbHHUOY35raeW4"
         query = "high schools"
         search_params = {"query": query, "key": api_key}
         search_url = base_url + urllib.urlencode(search_params)
@@ -156,7 +160,7 @@ class LocationInformationHandler(webapp2.RequestHandler):
         addressList = []
         for placeid in placeidList:
             base_url = "https://maps.googleapis.com/maps/api/place/details/json?"
-            api_key = "AIzaSyDJXaI_wsUlGgMbiEyzB0P4fBxywW8aXUQ"
+            api_key = "AIzaSyA2xB4MTIfq6ShDm0YzIhbHHUOY35raeW4"
             placeid = placeid
             Info_params = {"placeid": placeid, "key": api_key}
             Info_url = base_url + urllib.urlencode(Info_params)
@@ -183,7 +187,7 @@ class idHandler(webapp2.RequestHandler):
     def get(self):
         my_template=jinja_environment.get_template("Templates/id.html")
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
-        api_key = "AIzaSyDJXaI_wsUlGgMbiEyzB0P4fBxywW8aXUQ"
+        api_key = "AIzaSyA2xB4MTIfq6ShDm0YzIhbHHUOY35raeW4"
         query = "places in Chicago"
         search_params = {"query": query, "key": api_key}
         search_url = base_url + urllib.urlencode(search_params)

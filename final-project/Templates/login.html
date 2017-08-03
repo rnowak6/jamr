@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="resources/button.js"></script>
   <link rel="stylesheet" href="resources/login.css"/>
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
-  <!-- <script src="login.js"></script> -->
+
 </head>
 <body>
   <div id="header_div"><h1 id="login_header">Log In</h1></div>
@@ -24,6 +25,7 @@
   {%endfor%} -->
   <span id="genre_span"><h1>{{maxGenre}} : {{location}}</h1></span>
 </br>
-  <a href="https://sonic-potion-175714.appspot.com/go"><button>Go!</button></a>
+  <!-- <a id="go_button" href="https://sonic-potion-175714.appspot.com/go"><button>Go!</button></a> -->
+  <a id="go_button"><button>Go!</button></a>
 </body>
 </html>
