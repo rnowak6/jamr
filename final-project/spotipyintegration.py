@@ -12,7 +12,7 @@ import json
 #my_user=spotifyUserInfo(postUserName=amelialutz9)
 #print client_credentials_manager
 
-user=raw_input("Username: ")
+
 # user=raw_input("Username: ")
 def getGenres(user):
     client_credentials_manager = SpotifyClientCredentials()
