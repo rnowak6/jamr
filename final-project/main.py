@@ -29,6 +29,8 @@ import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
 from spotipyintegration import getGenres
+from getTheLocation import playlistGenre
+from getTheLocation import assignLocation
 
 #sp = spotipy.Spotify(SpotifyClientCredentials(client_id='2121dea381d948d38a492624ddddf03a',client_secret='12197784c3434ea6b407f11b4b993c8e'))
 # sp = spotipy.Spotify()
@@ -159,6 +161,8 @@ class LoginHandler(webapp2.RequestHandler):
             spotify_user.put()
         render_data['name']=username
         render_data['genres']=getGenres(username)
+        render_data['maxGenre']=playlistGenre(render_data['genres'])
+        render_data['location']=assignLocation(render_data['maxGenre'])
         self.response.write(my_template.render(render_data))
 
 class ServiceHandler(webapp2.RequestHandler):
