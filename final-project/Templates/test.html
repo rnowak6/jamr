@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <!--<html>
   <head>
     <style>
@@ -31,7 +32,7 @@
 </html> -->
 
 
-<html>
+<html >
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -47,6 +48,9 @@
         margin: 0;
         padding: 0;
       }
+      #cooldesign {
+        color: #89afff;
+      }
       button{
         height: 40px;
         width: 100px;
@@ -54,6 +58,7 @@
         border-radius: 20%;
         display: inline-block;
         border: none;
+        background-color: (137, 175, 255);
       }
       .elements {
         display: inline-block;
@@ -157,7 +162,7 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg&callback=initMap">
     </script>
       {% for information in name %}
-    <div class="elements">
+    <div id = "cooldesign" class="elements">
       {%for element in information%}
       {{element}}
       {% endfor %}
