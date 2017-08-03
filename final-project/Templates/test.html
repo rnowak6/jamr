@@ -73,6 +73,7 @@
           infoWindow.setContent('I can see you!');
           infoWindow.open(map);
           map.setCenter(pos);
+          putMarkers();
         }, function() {
           handleLocationError(true, infoWindow, map.getCenter());
         });
@@ -132,7 +133,6 @@
           {% endfor %}
       }
 
-  document.addEventListener("DOMContentLoaded", putMarkers);
     </script>
     <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg&callback=initMap">
