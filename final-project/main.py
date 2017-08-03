@@ -29,6 +29,8 @@ import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials
 import pprint
 from spotipyintegration import getGenres
+from getTheLocation import playlistGenre
+from getTheLocation import assignLocation
 
 #sp = spotipy.Spotify(SpotifyClientCredentials(client_id='2121dea381d948d38a492624ddddf03a',client_secret='12197784c3434ea6b407f11b4b993c8e'))
 # sp = spotipy.Spotify()
@@ -51,35 +53,8 @@ class MainHandler(webapp2.RequestHandler):
         # results = parsed_places_dictionary["results"]
 
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
-        api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
-        query = "places in Chicago"
-        search_params = {"query": query, "key": api_key}
-        search_url = base_url + urllib.urlencode(search_params)
-        search_url_data_source = urllib2.urlopen(search_url)
-        search_url_json_content = search_url_data_source.read()
-        parsed_search_url_dictionary = json.loads(search_url_json_content)
-        search_url_results = parsed_search_url_dictionary["results"]
-        latlngList = []
-        for result in search_url_results:
-            latlngDict = result["geometry"]["location"]
-            lat = latlngDict["lat"]
-            lng = latlngDict["lng"]
-            latlngList.append((lat,lng))
-        render_data = { "lat": lat, "lng": lng, "coordinate_list" : latlngList}
-        self.response.write(my_template.render(render_data))
-
-class LocationInformationHandler(webapp2.RequestHandler):
-    def get(self):
-        my_template=jinja_environment.get_template("templates/LocationInformation.html")
-        # information_data_source = urllib2.urlopen(
-        # "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg"
-        # )
-        # information_json_content = information_data_source.read()
-        # parsed_information_dictionary = json.loads(information_json_content)
-        # results = parsed_information_dictionary["results"]
-        base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
-        api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
-        query = "high schools in Chicago"
+        api_key = "AIzaSyAjMkxmL8taLeHU2oaENqmsZngProCoXaM"
+        query = "high schools"
         search_params = {"query": query, "key": api_key}
         search_url = base_url + urllib.urlencode(search_params)
         search_url_data_source = urllib2.urlopen(search_url)
@@ -92,9 +67,11 @@ class LocationInformationHandler(webapp2.RequestHandler):
             placeid = search["place_id"]
             placeidList.append(placeid)
         nameList = []
+        phoneList = []
+        addressList = []
         for placeid in placeidList:
             base_url = "https://maps.googleapis.com/maps/api/place/details/json?"
-            api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
+            api_key = "AIzaSyAjMkxmL8taLeHU2oaENqmsZngProCoXaM"
             placeid = placeid
             Info_params = {"placeid": placeid, "key": api_key}
             Info_url = base_url + urllib.urlencode(Info_params)
@@ -103,15 +80,75 @@ class LocationInformationHandler(webapp2.RequestHandler):
             parsed_Info_url_dictionary = json.loads(Info_url_json_content)
             Info_url_results = parsed_Info_url_dictionary["result"]
             # hoursList = []
-            # for
-            for addressName in Info_url_results["address_components"]:
-                longName = addressName["long_name"]
-            # result == "address_components"
-            # print nameDict
-            # for name in nameDict:
-            #     longName = name["long_name"]
-                nameList.append(longName)
-        render_data = {"longName": longName, "name": nameList}
+            # for name in Info_url_results["name"]:
+            thingName = Info_url_results["name"]
+            # nameList.append(thingName)
+            # placePhone = phoneNumber
+            placePhone = Info_url_results["formatted_phone_number"]
+            # phoneList.append(placePhone)
+            # nameList.append(placePhone)
+            # for addressName in Info_url_results["formatted_address"]:
+            address = Info_url_results["formatted_address"]
+            # addressList.append(longName)
+            nameList.append((thingName, address, placePhone))
+
+
+
+
+        latlngList = []
+        for result in search_url_results:
+            latlngDict = result["geometry"]["location"]
+            lat = latlngDict["lat"]
+            lng = latlngDict["lng"]
+            latlngList.append((lat,lng))
+        # render_data = { "lat": lat, "lng": lng, "coordinate_list" : latlngList}
+        render_data = { "lat": lat, "lng": lng, "coordinate_list" : latlngList, "thingName": thingName, "address": address, "placePhone": placePhone, "name": nameList}
+
+        self.response.write(my_template.render(render_data))
+
+class LocationInformationHandler(webapp2.RequestHandler):
+    def get(self):
+        my_template=jinja_environment.get_template("templates/LocationInformation.html")
+        base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
+        api_key = "AIzaSyAjMkxmL8taLeHU2oaENqmsZngProCoXaM"
+        query = "high schools"
+        search_params = {"query": query, "key": api_key}
+        search_url = base_url + urllib.urlencode(search_params)
+        search_url_data_source = urllib2.urlopen(search_url)
+        search_url_json_content = search_url_data_source.read()
+        parsed_search_url_dictionary = json.loads(search_url_json_content)
+        search_url_results = parsed_search_url_dictionary["results"]
+        # print search_url_results
+        placeidList = []
+        for search in search_url_results:
+            placeid = search["place_id"]
+            placeidList.append(placeid)
+        nameList = []
+        phoneList = []
+        addressList = []
+        for placeid in placeidList:
+            base_url = "https://maps.googleapis.com/maps/api/place/details/json?"
+            api_key = "AIzaSyAjMkxmL8taLeHU2oaENqmsZngProCoXaM"
+            placeid = placeid
+            Info_params = {"placeid": placeid, "key": api_key}
+            Info_url = base_url + urllib.urlencode(Info_params)
+            Info_url_data_source = urllib2.urlopen(Info_url)
+            Info_url_json_content = Info_url_data_source.read()
+            parsed_Info_url_dictionary = json.loads(Info_url_json_content)
+            Info_url_results = parsed_Info_url_dictionary["result"]
+            # hoursList = []
+            # for name in Info_url_results["name"]:
+            thingName = Info_url_results["name"]
+            # nameList.append(thingName)
+            # placePhone = phoneNumber
+            placePhone = Info_url_results["formatted_phone_number"]
+            # phoneList.append(placePhone)
+            # nameList.append(placePhone)
+            # for addressName in Info_url_results["formatted_address"]:
+            address = Info_url_results["formatted_address"]
+            # addressList.append(longName)
+            nameList.append((thingName, address, placePhone))
+        render_data = {"thingName": thingName, "address": address, "placePhone": placePhone, "name": nameList}
         self.response.write(my_template.render(render_data))
 
 class idHandler(webapp2.RequestHandler):
@@ -140,6 +177,16 @@ class idHandler(webapp2.RequestHandler):
 client_credentials_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
+global count
+count=0
+def return_count():
+    global count
+    return count
+
+def update_count():
+    global count
+    count+=1
+    return count
 
 class LoginHandler(webapp2.RequestHandler):
     # client_id=os.getenv("SPOTIPY_CLIENT_ID")
@@ -155,12 +202,17 @@ class LoginHandler(webapp2.RequestHandler):
         my_template=jinja_environment.get_template("templates/login.html")
         render_data={}
         username=self.request.get("username")
-        if username!="":
-            spotify_user=spotifyUserInfo(postUserName=username)
-            spotify_user.put()
+
         render_data['name']=username
         render_data['genres']=getGenres(username)
+        render_data['maxGenre']=playlistGenre(render_data['genres'])
+        render_data['location']=assignLocation(render_data['maxGenre'])
+        if username!="":
+            spotify_user=spotifyUserInfo(postUserName=username,location=render_data['location'],userNumber=count)
+            spotify_user.put()
+            update_count()
         self.response.write(my_template.render(render_data))
+
 
 class ServiceHandler(webapp2.RequestHandler):
     def get(self):
