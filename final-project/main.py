@@ -52,7 +52,7 @@ class MainHandler(webapp2.RequestHandler):
 
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
         api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
-        query = "places in Chicago"
+        query = "highschools in Chicago and coffee shops"
         search_params = {"query": query, "key": api_key}
         search_url = base_url + urllib.urlencode(search_params)
         search_url_data_source = urllib2.urlopen(search_url)
@@ -71,14 +71,8 @@ class MainHandler(webapp2.RequestHandler):
 class LocationInformationHandler(webapp2.RequestHandler):
     def get(self):
         my_template=jinja_environment.get_template("templates/LocationInformation.html")
-        # information_data_source = urllib2.urlopen(
-        # "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJN1t_tDeuEmsRUsoyG83frY4&key=AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg"
-        # )
-        # information_json_content = information_data_source.read()
-        # parsed_information_dictionary = json.loads(information_json_content)
-        # results = parsed_information_dictionary["results"]
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
-        api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
+        api_key = "AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg"
         query = "high schools in Chicago"
         search_params = {"query": query, "key": api_key}
         search_url = base_url + urllib.urlencode(search_params)
@@ -92,9 +86,11 @@ class LocationInformationHandler(webapp2.RequestHandler):
             placeid = search["place_id"]
             placeidList.append(placeid)
         nameList = []
+        phoneList = []
+        addressList = []
         for placeid in placeidList:
             base_url = "https://maps.googleapis.com/maps/api/place/details/json?"
-            api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
+            api_key = "AIzaSyDWxfkwgYMRFBLBc5TH0pBlsjx499vk4hg"
             placeid = placeid
             Info_params = {"placeid": placeid, "key": api_key}
             Info_url = base_url + urllib.urlencode(Info_params)
@@ -103,15 +99,18 @@ class LocationInformationHandler(webapp2.RequestHandler):
             parsed_Info_url_dictionary = json.loads(Info_url_json_content)
             Info_url_results = parsed_Info_url_dictionary["result"]
             # hoursList = []
-            # for
-            for addressName in Info_url_results["address_components"]:
-                longName = addressName["long_name"]
-            # result == "address_components"
-            # print nameDict
-            # for name in nameDict:
-            #     longName = name["long_name"]
-                nameList.append(longName)
-        render_data = {"longName": longName, "name": nameList}
+            # for name in Info_url_results["name"]:
+            thingName = Info_url_results["name"]
+            # nameList.append(thingName)
+            # placePhone = phoneNumber
+            placePhone = Info_url_results["formatted_phone_number"]
+            # phoneList.append(placePhone)
+            # nameList.append(placePhone)
+            # for addressName in Info_url_results["formatted_address"]:
+            address = Info_url_results["formatted_address"]
+            # addressList.append(longName)
+            nameList.append((thingName, address, placePhone))
+        render_data = {"thingName": thingName, "address": address, "placePhone": placePhone, "name": nameList}
         self.response.write(my_template.render(render_data))
 
 class idHandler(webapp2.RequestHandler):

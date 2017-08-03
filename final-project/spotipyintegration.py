@@ -12,7 +12,7 @@ import json
 #my_user=spotifyUserInfo(postUserName=amelialutz9)
 #print client_credentials_manager
 
-
+# user=raw_input("Username: ")
 def getGenres(user):
     client_credentials_manager = SpotifyClientCredentials()
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
@@ -42,7 +42,7 @@ def getGenres(user):
         playlist_tracks = sp.next(playlist_tracks)
     else:
         playlist_tracks = None
-    return types_of_songs
+    return types_of_songs#
 
 # user=raw_input("Username: ")
 # print getGenres(user)
