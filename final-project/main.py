@@ -45,7 +45,7 @@ jinja_environment = jinja2.Environment(
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         # search = self.request.get("search")
-        my_template = jinja_environment.get_template("templates/test.html")
+        my_template = jinja_environment.get_template("Templates/test.html")
         # places_data_source = urllib2.urlopen(
         #     "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subwaysinChicago&key=AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0")
         # places_json_content = places_data_source.read()
@@ -54,7 +54,7 @@ class MainHandler(webapp2.RequestHandler):
 
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
         api_key = "AIzaSyAjMkxmL8taLeHU2oaENqmsZngProCoXaM"
-        query = "high schools"
+        query = "high schools in Chicago"
         search_params = {"query": query, "key": api_key}
         search_url = base_url + urllib.urlencode(search_params)
         search_url_data_source = urllib2.urlopen(search_url)
@@ -108,7 +108,7 @@ class MainHandler(webapp2.RequestHandler):
 
 class LocationInformationHandler(webapp2.RequestHandler):
     def get(self):
-        my_template=jinja_environment.get_template("templates/LocationInformation.html")
+        my_template=jinja_environment.get_template("Templates/LocationInformation.html")
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
         api_key = "AIzaSyAjMkxmL8taLeHU2oaENqmsZngProCoXaM"
         query = "high schools"
@@ -153,7 +153,7 @@ class LocationInformationHandler(webapp2.RequestHandler):
 
 class idHandler(webapp2.RequestHandler):
     def get(self):
-        my_template=jinja_environment.get_template("templates/id.html")
+        my_template=jinja_environment.get_template("Templates/id.html")
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
         api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
         query = "places in Chicago"
@@ -189,7 +189,7 @@ class LoginHandler(webapp2.RequestHandler):
     client_secret=os.environ['SPOTIPY_CLIENT_SECRET']
 
     def get(self):
-        my_template=jinja_environment.get_template("templates/login.html")
+        my_template=jinja_environment.get_template("Templates/login.html")
         render_data={}
         username=self.request.get("username")
         if username!="":
@@ -203,7 +203,7 @@ class LoginHandler(webapp2.RequestHandler):
 
 class ServiceHandler(webapp2.RequestHandler):
     def get(self):
-        my_template=jinja_environment.get_template("templates/service.html")
+        my_template=jinja_environment.get_template("Templates/service.html")
         render_data={}
         query = spotifyUserInfo.query()
         render_data['list_of_users'] = query.fetch()
