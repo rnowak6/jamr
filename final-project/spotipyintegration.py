@@ -44,4 +44,5 @@ def getGenres(user):
         playlist_tracks = None
     return types_of_songs#
 
+# user=raw_input("Username: ")
 # print getGenres(user)
