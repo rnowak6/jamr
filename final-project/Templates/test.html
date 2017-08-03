@@ -139,7 +139,8 @@
     </script>
       {% for information in name %}
     <div>
-      {{information}}
+      {%for element in information%}
+      {{element}}
       {% endfor %}
     </div>
     <a href="https://sonic-potion-175714.appspot.com/"><button>Home</button></a>
