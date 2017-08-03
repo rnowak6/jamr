@@ -41,20 +41,46 @@ jinja_environment = jinja2.Environment(
 # client_id= os.getenv("SPOTIPY_CLIENT_ID")
 # client_secret=os.getenv("SPOTIPY_CLIENT_SECRET")
 
+global count
+count=0
+
+def get_max_number():
+    q = spotifyUserInfo.query()
+    f_q=q.fetch()
+    user_numbers=[]
+    for i in range(len(f_q)):
+        user_numbers.append(f_q[i].userNumber)
+    max_user_num=0
+    for num in user_numbers:
+        if num>max_user_num:
+            max_user_num=num
+    return max_user_num
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         # search = self.request.get("search")
-        my_template = jinja_environment.get_template("templates/test.html")
+        my_template = jinja_environment.get_template("Templates/test.html")
         # places_data_source = urllib2.urlopen(
         #     "https://maps.googleapis.com/maps/api/place/textsearch/json?query=subwaysinChicago&key=AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0")
         # places_json_content = places_data_source.read()
         # parsed_places_dictionary = json.loads(places_json_content)
         # results = parsed_places_dictionary["results"]
-
+        q = spotifyUserInfo.query()
+        f_q=q.fetch()
+        user_numbers=[]
+        for i in range(len(f_q)):
+            user_numbers.append(f_q[i].userNumber)
+        max_user_num=get_max_number()
+        print max_user_num
+        # for num in user_numbers:
+        #     if num>max_user_num:
+        #         max_user_num=num
+        for i in range(len(f_q)):
+            if f_q[i].userNumber==max_user_num:
+                query=f_q[i].location
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
         api_key = "AIzaSyAjMkxmL8taLeHU2oaENqmsZngProCoXaM"
-        query = "high schools"
+        #query = "high schools"
         search_params = {"query": query, "key": api_key}
         search_url = base_url + urllib.urlencode(search_params)
         search_url_data_source = urllib2.urlopen(search_url)
@@ -84,13 +110,14 @@ class MainHandler(webapp2.RequestHandler):
             thingName = Info_url_results["name"]
             # nameList.append(thingName)
             # placePhone = phoneNumber
-            placePhone = Info_url_results["formatted_phone_number"]
+            #placePhone = Info_url_results["formatted_phone_number"]
             # phoneList.append(placePhone)
             # nameList.append(placePhone)
             # for addressName in Info_url_results["formatted_address"]:
             address = Info_url_results["formatted_address"]
             # addressList.append(longName)
-            nameList.append((thingName, address, placePhone))
+            nameList.append((thingName, address))
+            #nameList.append((thingName, address, placePhone))
 
 
 
@@ -102,13 +129,14 @@ class MainHandler(webapp2.RequestHandler):
             lng = latlngDict["lng"]
             latlngList.append((lat,lng))
         # render_data = { "lat": lat, "lng": lng, "coordinate_list" : latlngList}
-        render_data = { "lat": lat, "lng": lng, "coordinate_list" : latlngList, "thingName": thingName, "address": address, "placePhone": placePhone, "name": nameList}
+        #render_data = { "lat": lat, "lng": lng, "coordinate_list" : latlngList, "thingName": thingName, "address": address, "placePhone": placePhone, "name": nameList}
+        render_data = { "lat": lat, "lng": lng, "coordinate_list" : latlngList, "thingName": thingName, "address": address, "name": nameList}
 
         self.response.write(my_template.render(render_data))
 
 class LocationInformationHandler(webapp2.RequestHandler):
     def get(self):
-        my_template=jinja_environment.get_template("templates/LocationInformation.html")
+        my_template=jinja_environment.get_template("Templates/LocationInformation.html")
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
         api_key = "AIzaSyAjMkxmL8taLeHU2oaENqmsZngProCoXaM"
         query = "high schools"
@@ -153,7 +181,7 @@ class LocationInformationHandler(webapp2.RequestHandler):
 
 class idHandler(webapp2.RequestHandler):
     def get(self):
-        my_template=jinja_environment.get_template("templates/id.html")
+        my_template=jinja_environment.get_template("Templates/id.html")
         base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?"
         api_key = "AIzaSyCCRonxhEphWEum0RufD1kNxAHS1ngWXO0"
         query = "places in Chicago"
@@ -177,8 +205,8 @@ class idHandler(webapp2.RequestHandler):
 client_credentials_manager = SpotifyClientCredentials()
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
-global count
-count=0
+
+
 def return_count():
     global count
     return count
@@ -199,7 +227,7 @@ class LoginHandler(webapp2.RequestHandler):
     client_secret=os.environ['SPOTIPY_CLIENT_SECRET']
 
     def get(self):
-        my_template=jinja_environment.get_template("templates/login.html")
+        my_template=jinja_environment.get_template("Templates/login.html")
         render_data={}
         username=self.request.get("username")
 
@@ -208,7 +236,7 @@ class LoginHandler(webapp2.RequestHandler):
         render_data['maxGenre']=playlistGenre(render_data['genres'])
         render_data['location']=assignLocation(render_data['maxGenre'])
         if username!="":
-            spotify_user=spotifyUserInfo(postUserName=username,location=render_data['location'],userNumber=count)
+            spotify_user=spotifyUserInfo(postUserName=username,location=render_data['location'],userNumber=get_max_number()+1)
             spotify_user.put()
             update_count()
         self.response.write(my_template.render(render_data))
@@ -216,7 +244,7 @@ class LoginHandler(webapp2.RequestHandler):
 
 class ServiceHandler(webapp2.RequestHandler):
     def get(self):
-        my_template=jinja_environment.get_template("templates/service.html")
+        my_template=jinja_environment.get_template("Templates/service.html")
         render_data={}
         query = spotifyUserInfo.query()
         render_data['list_of_users'] = query.fetch()

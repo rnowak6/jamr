@@ -72,15 +72,15 @@ def assignLocation(playlistGenre):
         "dancepop" : "zumba",
         "metal" : "burger place",
         "classical" : "Art Institute",
-        "tropicalhouse" : "coffee shop",
-        "trap" : "road trip",
+        "tropicalHouse" : "coffee shop",
+        "trapMusic" : "road trip",
         "rap" : "park",
-        "modernrock" : "",
-        "hiphop": "dance class",
+        "modernRock" : "",
+        "hipHop": "dance class",
         "latin" : "fire house",
         "edm" : "nightclubs",
         "country" : "go south",
-        "alternativerock" : "urban outfitters"
+        "alternative" : "urban outfitters"
     }
     found=genreReference.get(playlistGenre,None)
     if found is None:
