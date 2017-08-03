@@ -70,17 +70,17 @@ def assignLocation(playlistGenre):
     genreReference = {
         "pop" : "beach",
         "dancepop" : "zumba",
-        "metal" : "burger place",
+        "metal" : "motorcycles",
         "classical" : "Art Institute",
         "tropicalhouse" : "coffee shop",
-        "trap" : "road trip",
-        "rap" : "park",
-        "modernrock" : "",
+        "trap" : "tattoo",
+        "rap" : "Home depot",
+        "modernRock" : "barber shop",
         "hiphop": "dance class",
-        "latin" : "fire house",
+        "latin" : "salon",
         "edm" : "nightclubs",
-        "country" : "go south",
-        "alternativerock" : "urban outfitters"
+        "country" : "old crow",
+        "alternative" : "urban outfitters"
     }
     found=genreReference.get(playlistGenre,None)
     if found is None:
