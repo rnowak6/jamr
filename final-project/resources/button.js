@@ -7,7 +7,6 @@ function getLocation() {
       };
       window.location="/go?lat="+pos['lat']+"&lng="+pos['lng'];
     }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
     });
   }
 
