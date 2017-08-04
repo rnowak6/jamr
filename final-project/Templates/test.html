@@ -98,9 +98,9 @@
           infoWindow.open(map);
           map.setCenter(pos);
           putMarkers();
-        }, dleLocationError(true, infoWindow, map.getCenter());
+        }, function() {
         });
-      } 
+      }
     }
 
       function addMarker(lat, long){
